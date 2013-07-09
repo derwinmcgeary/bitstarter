@@ -38,8 +38,9 @@ var assertFileExists = function(infile) {
     return instr;
 };
 
-var assertUrlIsLive = function(url) {
-    return url; // do nothing for now
+var assertUrlIsLive = function(testurl) {
+    console.log(testurl);
+    return testurl; // do nothing for now
 }
 
 var cheerioHtmlFile = function(htmlfile) {
@@ -52,6 +53,7 @@ var loadChecks = function(checksfile) {
 
 var checkHtmlFile = function(htmlfile, checksfile) {
     $ = cheerioHtmlFile(htmlfile);
+    console.log("loading");
     var checks = loadChecks(checksfile).sort();
     var out = {};
     for(var ii in checks) {
@@ -62,18 +64,10 @@ var checkHtmlFile = function(htmlfile, checksfile) {
 };
 
 var checkUrl = function(testurl, checksfile) {
-rest.get(testurl).on('complete', function(result, response) {
+restler.get(testurl).on('complete', function(result, response) {
     // Do stuff with 'result', which will contain 
     // the html string returned by .get()
-    $ = cheerio.load(result);
-    var checks = loadChecks(checksfile).sort();
-    var out = {};
-    for(var ii in checks) {
-        var present = $(checks[ii]).length > 0;
-        out[checks[ii]] = present;
-    }
-    return out;
-
+    fs.writeFileSync('testindex.html',result);
 });
 }
 
@@ -89,10 +83,11 @@ if(require.main == module) {
         .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
 	.option('-u, --testurl <url>', 'URL to check', clone(assertUrlIsLive), URL_DEFAULT)
         .parse(process.argv);
-    if(program.url == URL_DEFAULT) {
+    if(program.testurl == URL_DEFAULT) {
     var checkJson = checkHtmlFile(program.file, program.checks);
     } else {
-	var checkJson = checkUrl(program.testurl, program.checks);
+	checkUrl(program.testurl, program.checks);
+	var checkJson = checkHtmlFile('testindex.html', program.checks);
     }
     var outJson = JSON.stringify(checkJson, null, 4);
     console.log(outJson);
