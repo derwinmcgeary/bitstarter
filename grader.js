@@ -39,7 +39,6 @@ var assertFileExists = function(infile) {
 };
 
 var assertUrlIsLive = function(testurl) {
-    console.log(testurl);
     return testurl; // do nothing for now
 }
 
@@ -53,7 +52,6 @@ var loadChecks = function(checksfile) {
 
 var checkHtmlFile = function(htmlfile, checksfile) {
     $ = cheerioHtmlFile(htmlfile);
-    console.log("loading");
     var checks = loadChecks(checksfile).sort();
     var out = {};
     for(var ii in checks) {
