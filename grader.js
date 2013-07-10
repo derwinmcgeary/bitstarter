@@ -61,17 +61,21 @@ var checkHtmlFile = function(htmlfile, checksfile) {
     return out;
 };
 
-var saveUrl = function(testurl, checksfile) {
-restler.get(testurl).on('complete', function(result, response) {
-    // Do stuff with 'result', which will contain 
-    // the html string returned by .get()
-    fs.writeFileSync('testindex.html',result);
-});
+var checkHtml = function(htmlfile,checksfile) {
+
+
 }
 
 var checkUrl = function(testurl, checksfile) {
-saveUrl(testurl,checksfile);
-return checkHtmlFile('testindex.html', checksfile);
+restler.get(testurl).on('complete', function(result, response) {
+    // Do stuff with 'result', which will contain 
+    // the html string returned by .get()
+    fs.writeFile('testindex.html',result, function(err) {
+	if (err) throw err;
+	console.log(JSON.stringify(checkHtmlFile('testindex.html',checksfile),null,4));
+    });
+});
+return checkHtmlFile('testindex.html',checksfile);
 }
 
 var clone = function(fn) {
@@ -88,12 +92,11 @@ if(require.main == module) {
         .parse(process.argv);
     if(program.testurl == URL_DEFAULT) {
     var checkJson = checkHtmlFile(program.file, program.checks);
-    } else {
-	var checkJson = checkUrl(program.testurl, program.checks);
-//	var checkJson = checkHtmlFile('testindex.html', program.checks);
-    }
     var outJson = JSON.stringify(checkJson, null, 4);
     console.log(outJson);
+    } else {
+	checkUrl(program.testurl, program.checks);
+    }
 } else {
     exports.checkHtmlFile = checkHtmlFile;
     exports.checkUrl = checkUrl;
