@@ -88,14 +88,14 @@ if(require.main == module) {
     program
         .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
         .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
-	.option('-u, --testurl <url>', 'URL to check', clone(assertUrlIsLive), URL_DEFAULT)
+	.option('-u, --url <url>', 'URL to check', clone(assertUrlIsLive), URL_DEFAULT)
         .parse(process.argv);
-    if(program.testurl == URL_DEFAULT) {
+    if(program.url == URL_DEFAULT) {
     var checkJson = checkHtmlFile(program.file, program.checks);
     var outJson = JSON.stringify(checkJson, null, 4);
     console.log(outJson);
     } else {
-	checkUrl(program.testurl, program.checks);
+	checkUrl(program.url, program.checks);
     }
 } else {
     exports.checkHtmlFile = checkHtmlFile;
