@@ -4,230 +4,346 @@
 <title>My T-shirt doesn't fit</title>
 <link type="text/css" rel="stylesheet" href="sizer.css"/>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <meta name="viewport" content="width:device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fsocial-buttons.css">
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,400,600,700,800">
+    <link href="http://fonts.googleapis.com/css?family=Lobster|EB+Garamond&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+    <style type="text/css">
+
+      /* Large desktop */
+@media (min-width:980px) {
+body {padding-top:60px;}
+.linediv-l { border-right:1px white solid;}
+.linediv-r { border-left:1px white solid;}
+}
+
+@media (max-width:480px) { /* Landscape phones and down */
+
+.copy { padding: 2.5% 10%;}
+.linediv-l { border-bottom:1px white solid;}
+.linediv-r { border-top:1px white solid;}
+
+
+}
+
+/* all form factors */
+
+      body {
+      font-family:'EB Garamond', 'Open Sans', Helvetica, Arial, sans-serif;
+      }
+
+.heading, .subheading {
+font-family:'EB Garamond', 'Ubuntu', Helvetica, Arial, sans-serif;
+text-align:center;
+}
+
+.heading {font-family:'Lobster', sans-serif;}
+      p.lead {
+      padding-top:1.5%;
+      font-size:36px;
+      line-height:30px;
+      }
+
+      p {
+      font-size:18px;
+      line-height:24px;
+      }
+
+      .pitch {
+      padding: 2.5% 0%;
+      }
+
+      .order {
+      padding: 2% 0%;
+      }
+
+      .actions {
+      background-color:#343434;
+      padding: 3% 0%;
+      }
+
+      .video, .thermometer, .order, .social, .statistics {
+      text-align:center;
+      }
+
+      .statistics h3, .statistics p {
+      color:white;
+      }
+
+      /* Marketing copy and footer */
+      .copy {
+      padding-top: 2.5%;
+      padding-bottom: 2.5%;
+      text-align: justify;
+      }
+
+      .asset {
+      padding: 2.5% 0%;
+      }
+
+      .footer {
+      color: #cccccc;
+      text-align: center;
+      }
+
+      .footer p {
+      font-size: 11px;
+      }
+
+      .footer a {
+      color: #ccccff
+      }
+      </style>
+
 </head>
 <body>
-<h1></h1>
-<article>
-<div id="tShirtFrame"></div>
-<p>
-Just fill in a few details...
-<form>
-	<label for="stdsize">What size do you usually wear?</label>	
-	<select id='stdsize' 
-onChange="javascript: updateSize();">        	
-        	<option value='S'>S
-		<option value='M'>M
-        	<option value='L'>L
-        	<option value='XL'>XL
-        	<option value='XXL'>XXL
-        	<option value='XXXL'>XXXL
-	</select>
-	<label for="clientHeight" >First measure from your collar bone to below your belt (in cm)</label> 
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+	<div class="container">
+	  <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="brand" href="#">Bitstarter</a>
+	  <div class="nav-collapse collapse">
+	    <ul class="nav">
+	      <li class="active"><a href="#">Home</a></li>
+	      <li><a href="#about">About</a></li>
+	      <li><a href="#contact">Contact</a></li>
+	    </ul>
+	  </div>
+	</div>
+      </div>
+    </div>
 
-	<input id="clientHeight" type="number" name="height" onChange="javascript: updateShirt();" placeholder="75" value="75" min="0" required />
+    <h1 class="heading">To a Tee (или КакРаз.рф)</h1>
+    <article>
+      <div id="tShirtFrame"></div>
+      <p>
+	Just fill in a few details...
+	<form>
+	  <label for="stdsize">What size do you usually wear?</label>	
+	  <select id='stdsize' 
+		  onChange="javascript: updateSize();">        	
+            <option value='S'>S
+	    <option value='M'>M
+            <option value='L'>L
+            <option value='XL'>XL
+            <option value='XXL'>XXL
+            <option value='XXXL'>XXXL
+	  </select>
+	  <label for="clientHeight" >First measure from your collar bone to below your belt (in cm)</label> 
+	  
+	  <input id="clientHeight" type="number" name="height" onChange="javascript: updateShirt();" placeholder="75" value="75" min="0" required />
+	  
+	  <label for="clientArm" >...now around your bicep</label> 
+	  <input id="clientArm" type="number" name="arm" onChange="javascript: updateShirt();" placeholder="32" value="32" min="0" required />
+	  
+	  <label for="clientNeck" >...and (loosely!) around your neck</label> 
+	  <input id="clientNeck" type="number" name="neck" onChange="javascript: updateShirt();" placeholder="35" value="35" min="0" required />
+	  
+	  <label for="clientWidth">Now measure around your belly!</label>
+	  <input id="clientWidth" type="number" name="width" onChange="javascript: updateShirt();" placeholder="56" value="56" min="0" required />
+	  <label for="teecolor">Don't forget to select a color!</label>	
+	  <select id='teecolor' 
+		  onChange="javascript: updateShirt();">        	
+            <option value='gray'>Grey
+	    <option value='black'>Black
+            <option value='white'>White
+            <option value='blue'>Blue
+            <option value='green'>Green
+            <option value='red'>Red
+	  </select>
+	  
+	  <label for="allDone">Perfect!</label><input type="submit" id="allDone"/>
+	</form>
+      </p>
+    </article>
+    <script>
+      var shirtDimensions = {"S":
+      {"bottomBreadth":46,
+      "shirtHeight":63,
+      "collarWidth":17,
+      "shoulderWidth":44,
+      "collarSeam":3,
+      "lowerSleeve":16,
+      "upperSleeve":20,
+      "lowerSleeveLength":12,
+      "upperSleeveLength":17,
+      "seamWidth":2.5,
+      "collarDifference":8
+      },
+      "M":
+      {"bottomBreadth":54,
+      "shirtHeight":73,
+      "collarWidth":19,
+      "shoulderWidth":52,
+      "collarSeam":3,
+      "lowerSleeve":19,
+      "upperSleeve":25,
+      "lowerSleeveLength":17,
+      "upperSleeveLength":22,
+      "seamWidth":2.5,
+      "collarDifference":9
+      },
+      "L":
+      {"bottomBreadth":56,
+      "shirtHeight":75,
+      "collarWidth":19,
+      "shoulderWidth":54,
+      "collarSeam":3,
+      "lowerSleeve":20,
+      "upperSleeve":26,
+      "lowerSleeveLength":18,
+      "upperSleeveLength":23,
+      "seamWidth":2.5,
+      "collarDifference":9
+      },
+      "XL":
+      {"bottomBreadth":58,
+      "shirtHeight":78,
+      "collarWidth":20,
+      "shoulderWidth":56,
+      "collarSeam":3,
+      "lowerSleeve":21,
+      "upperSleeve":27,
+      "lowerSleeveLength":19,
+      "upperSleeveLength":24,
+      "seamWidth":2.5,
+      "collarDifference":10
+      },
+      "XXL":
+      {"bottomBreadth":60,
+      "shirtHeight":80,
+      "collarWidth":20,
+      "shoulderWidth":58,
+      "collarSeam":3,
+      "lowerSleeve":22,
+      "upperSleeve":28,
+      "lowerSleeveLength":20,
+      "upperSleeveLength":25,
+      "seamWidth":2.5,
+      "collarDifference":10
+      },
+      "XXXL":
+      {"bottomBreadth":68,
+      "shirtHeight":84,
+      "collarWidth":22,
+      "shoulderWidth":65,
+      "collarSeam":3,
+      "lowerSleeve":24,
+      "upperSleeve":30,
+      "lowerSleeveLength":21,
+      "upperSleeveLength":26,
+      "seamWidth":2.5,
+      "collarDifference":11
+      }
+      };
+      
+      function changeRect(atr,val) {
+      if (atr=="height") { h = val;
+      w = document.getElementById('clientWidth').value;
+      }
+      if(atr=="width") { w = val;
+      h =	document.getElementById('clientHeight').value;
+      }
+      line="M 25 25 l " + w + " 0 0 " + h + " -" + w + " 0 Z" 
+      shirts=d3.select("#shirt")
+      .attr("id","shirt")
+      .attr("d",line)
+      .attr("fill","green");
+      }
+      
+      function createRect(w,h) { 
+      var line="M 25 25 l " + w + " 0 0 " + h + " -" + w + " 0 Z";
+      shirt=d3.select("#shirtFrame").append("path")
+      .attr("id","shirt")
+      .attr("d",line)
+      .attr("fill","green");	
+      }
+      
+      function updateSize() {
+      curSize = document.getElementById('stdsize').value;
+      var tmp = shirtDimensions[curSize];
+      document.getElementById('clientHeight').value=tmp.shirtHeight;
+      document.getElementById('clientWidth').value=2 * tmp.bottomBreadth;
+      document.getElementById('clientArm').value=2 * tmp.lowerSleeve;
+      document.getElementById('clientNeck').value=2 * tmp.collarWidth;
+      
+      var line = dimensionsToPath(tmp);
+      d3.select("#shirty")
+      .attr("d",line)
+      .attr("fill", document.getElementById('teecolor').value);
+      }
 
-	<label for="clientArm" >...now around your bicep</label> 
-	<input id="clientArm" type="number" name="arm" onChange="javascript: updateShirt();" placeholder="32" value="32" min="0" required />
+      function updateShirt() {
+      curSize = document.getElementById('stdsize').value;
+      var tmp = shirtDimensions[curSize];
+      tmp.shirtHeight=document.getElementById('clientHeight').value;
+      tmp.bottomBreadth=document.getElementById('clientWidth').value/2; // /2 because we measure circumference but output garment width
+      tmp.lowerSleeve = document.getElementById('clientArm').value/2;
+      tmp.collarWidth = document.getElementById('clientNeck').value/2;
+      tmp.shoulderWidth = tmp.bottomBreadth - 2;
+      var line = dimensionsToPath(tmp);
+      d3.select("#shirty")
+      .attr("d",line)
+      .attr("fill", document.getElementById('teecolor').value);
+      }
 
-	<label for="clientNeck" >...and (loosely!) around your neck</label> 
-	<input id="clientNeck" type="number" name="neck" onChange="javascript: updateShirt();" placeholder="35" value="35" min="0" required />
-
-	<label for="clientWidth">Now measure around your belly!</label>
-	<input id="clientWidth" type="number" name="width" onChange="javascript: updateShirt();" placeholder="56" value="56" min="0" required />
-	<label for="teecolor">Don't forget to select a color!</label>	
-	<select id='teecolor' 
-onChange="javascript: updateShirt();">        	
-        	<option value='gray'>Grey
-		<option value='black'>Black
-        	<option value='white'>White
-        	<option value='blue'>Blue
-        	<option value='green'>Green
-        	<option value='red'>Red
-	</select>
-
-	<label for="allDone">Perfect!</label><input type="submit" id="allDone"/>
-</form>
-</p>
-</article>
-<script>
-var shirtDimensions = {"S":
-	{"bottomBreadth":46,
-	"shirtHeight":63,
-	"collarWidth":17,
-	"shoulderWidth":44,
-	"collarSeam":3,
-	"lowerSleeve":16,
-	"upperSleeve":20,
-	"lowerSleeveLength":12,
-	"upperSleeveLength":17,
-	"seamWidth":2.5,
-	"collarDifference":8
-	},
-"M":
-	{"bottomBreadth":54,
-	"shirtHeight":73,
-	"collarWidth":19,
-	"shoulderWidth":52,
-	"collarSeam":3,
-	"lowerSleeve":19,
-	"upperSleeve":25,
-	"lowerSleeveLength":17,
-	"upperSleeveLength":22,
-	"seamWidth":2.5,
-	"collarDifference":9
-	},
-"L":
-	{"bottomBreadth":56,
-	"shirtHeight":75,
-	"collarWidth":19,
-	"shoulderWidth":54,
-	"collarSeam":3,
-	"lowerSleeve":20,
-	"upperSleeve":26,
-	"lowerSleeveLength":18,
-	"upperSleeveLength":23,
-	"seamWidth":2.5,
-	"collarDifference":9
-	},
-"XL":
-	{"bottomBreadth":58,
-	"shirtHeight":78,
-	"collarWidth":20,
-	"shoulderWidth":56,
-	"collarSeam":3,
-	"lowerSleeve":21,
-	"upperSleeve":27,
-	"lowerSleeveLength":19,
-	"upperSleeveLength":24,
-	"seamWidth":2.5,
-	"collarDifference":10
-	},
-"XXL":
-	{"bottomBreadth":60,
-	"shirtHeight":80,
-	"collarWidth":20,
-	"shoulderWidth":58,
-	"collarSeam":3,
-	"lowerSleeve":22,
-	"upperSleeve":28,
-	"lowerSleeveLength":20,
-	"upperSleeveLength":25,
-	"seamWidth":2.5,
-	"collarDifference":10
-	},
-"XXXL":
-	{"bottomBreadth":68,
-	"shirtHeight":84,
-	"collarWidth":22,
-	"shoulderWidth":65,
-	"collarSeam":3,
-	"lowerSleeve":24,
-	"upperSleeve":30,
-	"lowerSleeveLength":21,
-	"upperSleeveLength":26,
-	"seamWidth":2.5,
-	"collarDifference":11
-	}
-};
-
-function changeRect(atr,val) {
-if (atr=="height") { h = val;
-				w = document.getElementById('clientWidth').value;
-	}
-if(atr=="width") { w = val;
-				h =	document.getElementById('clientHeight').value;
-	}
-line="M 25 25 l " + w + " 0 0 " + h + " -" + w + " 0 Z" 
-shirts=d3.select("#shirt")
-	.attr("id","shirt")
-	.attr("d",line)
-	.attr("fill","green");
-}
-
-function createRect(w,h) { 
-var line="M 25 25 l " + w + " 0 0 " + h + " -" + w + " 0 Z";
-shirt=d3.select("#shirtFrame").append("path")
-	.attr("id","shirt")
-	.attr("d",line)
-	.attr("fill","green");	
-}
-
-function updateSize() {
-curSize = document.getElementById('stdsize').value;
-var tmp = shirtDimensions[curSize];
-document.getElementById('clientHeight').value=tmp.shirtHeight;
-document.getElementById('clientWidth').value=2 * tmp.bottomBreadth;
-document.getElementById('clientArm').value=2 * tmp.lowerSleeve;
-document.getElementById('clientNeck').value=2 * tmp.collarWidth;
-
-var line = dimensionsToPath(tmp);
-d3.select("#shirty")
-	.attr("d",line)
-	.attr("fill", document.getElementById('teecolor').value);
-}
-
-function updateShirt() {
-curSize = document.getElementById('stdsize').value;
-var tmp = shirtDimensions[curSize];
-tmp.shirtHeight=document.getElementById('clientHeight').value;
-tmp.bottomBreadth=document.getElementById('clientWidth').value/2; // /2 because we measure circumference but output garment width
-tmp.lowerSleeve = document.getElementById('clientArm').value/2;
-tmp.collarWidth = document.getElementById('clientNeck').value/2;
-tmp.shoulderWidth = tmp.bottomBreadth - 2;
-var line = dimensionsToPath(tmp);
-d3.select("#shirty")
-	.attr("d",line)
-	.attr("fill", document.getElementById('teecolor').value);
-}
-
-function createShirt(size, color) {
-var line = dimensionsToPath(shirtDimensions[size]);
-document.getElementById('clientHeight').value=shirtDimensions[size].shirtHeight;
-document.getElementById('clientWidth').value=2 * shirtDimensions[size].bottomBreadth;
-document.getElementById('clientArm').value=2 * shirtDimensions[size].lowerSleeve;
-document.getElementById('clientNeck').value=2 * shirtDimensions[size].collarWidth;
-
-var shirt = d3.select("#shirtFrame").append("path")
-	.attr("id","shirty")
-	.attr("d",line)
-	.attr("fill",color)
-	.attr("stroke","white")
-	.attr("stroke-width","1")
-	.attr("stroke-dasharray","5, 1");
-}
-
-function dimensionsToPath(dims) { // ugly but straightforward
-var start = "M 5 15 ";
-var d1 = -1 * dims.collarDifference;
-var d2 = dims.upperSleeveLength + (dims.shoulderWidth-dims.collarWidth)/2;
-var d3 = dims.shirtHeight - dims.collarDifference - dims.lowerSleeve;
-var d4 = dims.upperSleeveLength - dims.lowerSleeveLength;
-var teewidth = 2 * dims.upperSleeveLength + dims.shoulderWidth;
-var totalwidth = 100;
-var start = "M " + (totalwidth-teewidth)/2 + " 15 ";
-var m1 = "l " + d2 + " " + d1 + " ";
-var m2 = dims.collarWidth/2 + " " + dims.collarDifference + " ";
-var m3 = dims.collarWidth/2 + " " + d1 + " ";
-var m4 = d2 + " " + dims.collarDifference + " ";
-var m5 = -1* d4 + " " + dims.lowerSleeve + " ";
-var m6 = -1 * dims.lowerSleeveLength + " 0 ";
-var m7 = "0 " + d3; // pen is now at the bottom right of the shirt
-var m8 = -1 * dims.bottomBreadth + " 0 ";
-var m9 = "0 -" + d3;
-var m10 = -1 * dims.lowerSleeveLength + " 0 ";
-end ="Z";
-return start + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + end;
-}
-
-
-
-var shirt=d3.select("#tShirtFrame").append("svg")
-	.attr("id","shirtFrame")
-	.attr("width","100%")
-	.attr("height","100%")
-	.attr("viewBox","0 0 100 100");
-
-createShirt(document.getElementById('stdsize').value,document.getElementById('teecolor').value);
-</script>
+      function createShirt(size, color) {
+      var line = dimensionsToPath(shirtDimensions[size]);
+      document.getElementById('clientHeight').value=shirtDimensions[size].shirtHeight;
+      document.getElementById('clientWidth').value=2 * shirtDimensions[size].bottomBreadth;
+      document.getElementById('clientArm').value=2 * shirtDimensions[size].lowerSleeve;
+      document.getElementById('clientNeck').value=2 * shirtDimensions[size].collarWidth;
+      
+      var shirt = d3.select("#shirtFrame").append("path")
+      .attr("id","shirty")
+      .attr("d",line)
+      .attr("fill",color)
+      .attr("stroke","white")
+      .attr("stroke-width","1")
+      .attr("stroke-dasharray","5, 1");
+      }
+      
+      function dimensionsToPath(dims) { // ugly but straightforward
+      var start = "M 5 15 ";
+      var d1 = -1 * dims.collarDifference;
+      var d2 = dims.upperSleeveLength + (dims.shoulderWidth-dims.collarWidth)/2;
+      var d3 = dims.shirtHeight - dims.collarDifference - dims.lowerSleeve;
+      var d4 = dims.upperSleeveLength - dims.lowerSleeveLength;
+      var teewidth = 2 * dims.upperSleeveLength + dims.shoulderWidth;
+      var totalwidth = 100;
+      var start = "M " + (totalwidth-teewidth)/2 + " 15 ";
+      var m1 = "l " + d2 + " " + d1 + " ";
+      var m2 = dims.collarWidth/2 + " " + dims.collarDifference + " ";
+      var m3 = dims.collarWidth/2 + " " + d1 + " ";
+      var m4 = d2 + " " + dims.collarDifference + " ";
+      var m5 = -1* d4 + " " + dims.lowerSleeve + " ";
+      var m6 = -1 * dims.lowerSleeveLength + " 0 ";
+      var m7 = "0 " + d3; // pen is now at the bottom right of the shirt
+      var m8 = -1 * dims.bottomBreadth + " 0 ";
+      var m9 = "0 -" + d3;
+      var m10 = -1 * dims.lowerSleeveLength + " 0 ";
+      end ="Z";
+      return start + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + end;
+      }
+      
+      
+      
+      var shirt=d3.select("#tShirtFrame").append("svg")
+      .attr("id","shirtFrame")
+      .attr("width","100%")
+      .attr("height","100%")
+      .attr("viewBox","0 0 100 100");
+      
+      createShirt(document.getElementById('stdsize').value,document.getElementById('teecolor').value);
+    </script>
 </body>
 </html>
