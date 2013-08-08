@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>My T-shirt doesn't fit</title>
-<link type="text/css" rel="stylesheet" href="sizer.css"/>
+<!--<link type="text/css" rel="stylesheet" href="sizer.css"/>-->
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <meta name="viewport" content="width:device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css">
@@ -124,7 +124,7 @@ text-align:center;
 
     <h1 class="heading">To a Tee (или КакРаз.рф)</h1>
     <article>
-      <div id="tShirtFrame"></div>
+
       <p>
 	Just fill in a few details...
 	<form>
@@ -161,9 +161,10 @@ text-align:center;
             <option value='red'>Red
 	  </select>
 	  
-	  <label for="allDone">Perfect!</label><input type="submit" id="allDone"/>
+	  <a href="#download-svg" id="download-svg"><button>Right-click, then save</button></a>
 	</form>
       </p>
+      <div id="tShirtFrame"></div>
     </article>
     <script>
       var shirtDimensions = {"S":
@@ -246,20 +247,6 @@ text-align:center;
       }
       };
       
-      function changeRect(atr,val) {
-      if (atr=="height") { h = val;
-      w = document.getElementById('clientWidth').value;
-      }
-      if(atr=="width") { w = val;
-      h =	document.getElementById('clientHeight').value;
-      }
-      line="M 25 25 l " + w + " 0 0 " + h + " -" + w + " 0 Z" 
-      shirts=d3.select("#shirt")
-      .attr("id","shirt")
-      .attr("d",line)
-      .attr("fill","green");
-      }
-      
       function createCreditCard(x,y) { 
       var dpi = 133;
       var scale = dpi/96;
@@ -339,7 +326,7 @@ text-align:center;
       .attr("id","shirty")
       .attr("d",line)
       .attr("fill",color)
-      .attr("stroke","gray")
+      .attr("stroke","black")
       .attr("stroke-width","0.05")
       .attr("stroke-dasharray","0.5, 0.1");
       } 
@@ -391,32 +378,7 @@ text-align:center;
 
       return front + rsleeve + lsleeve + back;
       }
-      
-      function dimensionsToBody(dims) { // ugly but straightforward
-      var start = "M 5 15 ";
-      var d1 = -1 * dims.collarDifference;
-      var d2 = dims.upperSleeveLength + (dims.shoulderWidth-dims.collarWidth)/2;
-      var d3 = dims.shirtHeight - dims.collarDifference - dims.lowerSleeve;
-      var d4 = dims.upperSleeveLength - dims.lowerSleeveLength;
-      var teewidth = 2 * dims.upperSleeveLength + dims.shoulderWidth;
-      var totalwidth = 100;
-      var start = "M " + (totalwidth-teewidth)/2 + " 15 ";
-      var m1 = "l " + d2 + " " + d1 + " ";
-      var m2 = "q " + dims.collarWidth/2 + " " + 2 * dims.collarDifference + " ";
-      var m3 = dims.collarWidth + " 0 l ";
-      var m4 = d2 + " " + dims.collarDifference + " ";
-      var m5 = -1* d4 + " " + dims.lowerSleeve + " ";
-      var m6 = -1 * dims.lowerSleeveLength + " 0 ";
-      var m7 = "0 " + d3; // pen is now at the bottom right of the shirt
-      var m8 = -1 * dims.bottomBreadth + " 0 ";
-      var m9 = "0 -" + d3;
-      var m10 = -1 * dims.lowerSleeveLength + " 0 ";
-      end ="Z";
-      return start + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + end;
-      }
-
-      
-      
+            
       var shirt=d3.select("#tShirtFrame").append("svg")
       .attr("id","shirtFrame")
       .attr("width","100cm")  //  Hear Ye! Hear Ye!
@@ -425,6 +387,17 @@ text-align:center;
 
       createShirt(document.getElementById('stdsize').value,document.getElementById('teecolor').value);
       createCreditCard(25,30);
+
+      d3.selectAll("#download-svg")
+    .attr("href", "data:image/svg+xml;charset=utf-8;base64," + 
+      btoa(unescape(encodeURIComponent(
+        d3.selectAll("svg").attr("version", "1.1").attr("xmlns", "http://www.w3.org/2000/svg")
+       .node().parentNode.innerHTML)
+        )
+      )
+    )
+  .attr("tshirt.svg","tshirt.svg");
+
     </script>
 </body>
 </html>
