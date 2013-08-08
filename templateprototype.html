@@ -153,9 +153,9 @@ text-align:center;
 	  <label for="teecolor">Don't forget to select a color!</label>	
 	  <select id='teecolor' 
 		  onChange="javascript: updateShirt();">        	
+            <option value='white'>White
             <option value='gray'>Grey
 	    <option value='black'>Black
-            <option value='white'>White
             <option value='blue'>Blue
             <option value='green'>Green
             <option value='red'>Red
@@ -272,13 +272,30 @@ text-align:center;
       .attr("height",5.398 * scale)
       .attr("rx",0.32 * scale)
       .attr("ry",0.32 *scale)
-      .attr("fill","blue");
+      .attr("fill","white")
+      .attr("stroke","black")
+      .attr("stroke-width",0.005);
 
       var user = d3.select("#shirtFrame").append("text")
-      .text("Alex Fitness")
-      .attr("x",6)
-      .attr("y",4.5)
+      .text("Use credit card to confirm print size")
+      .attr("x",x + 0.1)
+      .attr("y",y + 2)
       .attr("font-size",0.7)
+      .attr("font-family","Open Sans")
+      .attr("fill","black");
+      var user = d3.select("#shirtFrame").append("text")
+      .text("1543   3652   3643   1828")
+      .attr("x",x + 0.5)
+      .attr("y",y + 5)
+      .attr("font-size",0.7)
+      .attr("font-family","Open Sans")
+      .attr("fill","black");
+      var user = d3.select("#shirtFrame").append("text")
+      .text("D MCGEARY")
+      .attr("x",x + 0.5)
+      .attr("y",y + 6)
+      .attr("font-size",0.7)
+      .attr("font-family","Open Sans")
       .attr("fill","black");
 
       }
@@ -322,9 +339,9 @@ text-align:center;
       .attr("id","shirty")
       .attr("d",line)
       .attr("fill",color)
-      .attr("stroke","white")
-      .attr("stroke-width","1")
-      .attr("stroke-dasharray","5, 1");
+      .attr("stroke","gray")
+      .attr("stroke-width","0.05")
+      .attr("stroke-dasharray","0.5, 0.1");
       } 
 
       function dimensionsToPath(dims) { // ugly but straightforward
@@ -339,8 +356,40 @@ text-align:center;
       var m5 = "q 0 " + 0.5 * dims.upperSleeve + " " + d2 + " " + dims.upperSleeve;
       var m6 = "l " + -1 * (d2 + 0.5 * dims.shoulderWidth - 0.5 * dims.bottomBreadth) + " " + d3; //pen is at bottom right 
       var m7 = "h " + -1 * dims.bottomBreadth;
-      end ="Z";
-      return start + m1 + m2 + m3 + m4 + m5 + m6 + m7 + end;
+      var end ="Z ";
+      var front = start + m1 + m2 + m3 + m4 + m5 + m6 + m7 + end;
+/**************************RIGHT SLEEVE**********************************/
+      offset = dims.shoulderWidth + 20;
+      var sstart = "M " + offset + " " + dims.collarDifference;
+      s1 = "h " + dims.lowerSleeveLength;
+      s2 = "q " + d2 + " 0 " + d2  + " " + dims.lowerSleeve;
+      s3 = "q 0 " + dims.lowerSleeve + " "+ -1*d2  + " " + dims.lowerSleeve;
+      s4 = "h " + -1*dims.lowerSleeveLength;
+      send = "Z";
+      rsleeve = sstart + s1 + s2 + s3 + s4 + send;
+/****************************LEFT SLEEVE*******************************/
+      offset = offset + dims.upperSleeveLength;
+      sstart = "M " + offset + " " + 1*(dims.collarDifference + 2 * dims.lowerSleeve);
+      s1 = "h " + -1*dims.lowerSleeveLength;
+      s2 = "q " + -1*d2 + " 0 " + -1*d2  + " " + dims.lowerSleeve;
+      s3 = "q 0 " + dims.lowerSleeve + " " + d2  + " " + dims.lowerSleeve;
+      s4 = "h " + dims.lowerSleeveLength;
+      send = "Z";
+      lsleeve = sstart + s1 + s2 + s3 + s4 + send;
+/***************************THE BACK**********************************/
+      yoffset = 1*d1 + 1*dims.shirtHeight;
+      var start = "M 5 " + yoffset;
+      var m1 = "q " + d2 + " " + -0.5 * dims.upperSleeve + " " + d2 + " " + -1 * dims.upperSleeve;
+      var m2 = "h " + 0.5 * (dims.shoulderWidth - dims.collarWidth);
+      var m3 = "q " + 0.5 * dims.collarWidth + " " + 0.5 * dims.collarDifference + " " + dims.collarWidth + " 0";
+      var m4 = m2;
+      var m5 = "q 0 " + 0.5 * dims.upperSleeve + " " + d2 + " " + dims.upperSleeve;
+      var m6 = "l " + -1 * (d2 + 0.5 * dims.shoulderWidth - 0.5 * dims.bottomBreadth) + " " + d3; //pen is at bottom right 
+      var m7 = "h " + -1 * dims.bottomBreadth;
+      var end ="Z ";
+      var back = start + m1 + m2 + m3 + m4 + m5 + m6 + m7 + end;
+
+      return front + rsleeve + lsleeve + back;
       }
       
       function dimensionsToBody(dims) { // ugly but straightforward
@@ -370,11 +419,12 @@ text-align:center;
       
       var shirt=d3.select("#tShirtFrame").append("svg")
       .attr("id","shirtFrame")
-      .attr("width","100mm")  //  Hear Ye! Hear Ye!
-      .attr("height","100mm") // These measurements should be cm, but are mm for testing purposes
-      .attr("viewBox","0 0 100 100");
-      createCreditCard(2,2);
+      .attr("width","100cm")  //  Hear Ye! Hear Ye!
+      .attr("height","200cm") // These measurements should be cm, but are mm for testing purposes
+      .attr("viewBox","0 0 100 200");
+
       createShirt(document.getElementById('stdsize').value,document.getElementById('teecolor').value);
+      createCreditCard(25,30);
     </script>
 </body>
 </html>
