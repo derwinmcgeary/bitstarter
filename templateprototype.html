@@ -346,21 +346,22 @@ text-align:center;
       var end ="Z ";
       var front = start + m1 + m2 + m3 + m4 + m5 + m6 + m7 + end;
 /**************************RIGHT SLEEVE**********************************/
+      var d4 = dims.upperSleeve - dims.lowerSleeve;
       offset = dims.shoulderWidth + 20;
       var sstart = "M " + offset + " " + dims.collarDifference;
-      s1 = "h " + dims.lowerSleeveLength;
-      s2 = "q " + d2 + " 0 " + d2  + " " + dims.lowerSleeve;
-      s3 = "q 0 " + dims.lowerSleeve + " "+ -1*d2  + " " + dims.lowerSleeve;
-      s4 = "h " + -1*dims.lowerSleeveLength;
+      s1 = "l " + dims.lowerSleeveLength + " " + -1*d4;
+      s2 = "q " + d2 + " 0 " + d2  + " " + dims.upperSleeve;
+      s3 = "q 0 " + dims.upperSleeve + " "+ -1*d2  + " " + dims.upperSleeve;
+      s4 = "l " + -1*dims.lowerSleeveLength + " " + -1*d4;
       send = "Z";
       rsleeve = sstart + s1 + s2 + s3 + s4 + send;
 /****************************LEFT SLEEVE*******************************/
       offset = offset + dims.upperSleeveLength;
-      sstart = "M " + offset + " " + 1*(dims.collarDifference + 2 * dims.lowerSleeve);
-      s1 = "h " + -1*dims.lowerSleeveLength;
-      s2 = "q " + -1*d2 + " 0 " + -1*d2  + " " + dims.lowerSleeve;
-      s3 = "q 0 " + dims.lowerSleeve + " " + d2  + " " + dims.lowerSleeve;
-      s4 = "h " + dims.lowerSleeveLength;
+      sstart = "M " + offset + " " + 1*(dims.collarDifference + 2 * dims.upperSleeve);
+      s1 = "l " + -1*dims.lowerSleeveLength + " " + -1*d4;
+      s2 = "q " + -1*d2 + " 0 " + -1*d2  + " " + dims.upperSleeve;
+      s3 = "q 0 " + dims.upperSleeve + " " + d2  + " " + dims.upperSleeve;
+      s4 = "l " + dims.lowerSleeveLength + " " + -1*d4;
       send = "Z";
       lsleeve = sstart + s1 + s2 + s3 + s4 + send;
 /***************************THE BACK**********************************/
